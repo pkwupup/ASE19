@@ -1,41 +1,42 @@
 import numpy as np
-
-class Num:
-    def __init__(self):
-        self.n, self.mean, self.m2 = 0, 0, 0
-        self.lo, self.hi = 10 ^ 32, -1 * 10 ^ 32
-
-    def __mean__(self):
-        return self.mean
-
-    def __std__(self):
-        return 0 if self.n<2 else (np.sqrt(self.m2/(self.n-1)))
-
-    def __add__(self, other):
-        if other < self.lo:
-            self.lo = other
-        if other > self.hi:
-            self.hi = other
-        self.n += 1
-        diff = other - self.mean
-        self.mean += diff/self.n
-        self.m2 += diff*(other - self.mean)
-
-    def __sub__(self,other):
-        if self.n < 2:
+class Col:
+    class Num:
+        def __init__(self):
             self.n, self.mean, self.m2 = 0, 0, 0
-        else:
-            self.n -= 1
-            diff = other - self.mean
-            self.mean -= diff / self.n
-            self.m2 -= diff * (other - self.mean)
+            self.lo, self.hi = 10 ^ 32, -1 * 10 ^ 32
 
-# class Sym:
-#
-# class Some:
+        def __mean__(self):
+            return self.mean
+
+        def __std__(self):
+            return 0 if self.n<2 else (np.sqrt(self.m2/(self.n-1)))
+
+        def __add__(self, other):
+            if other < self.lo:
+                self.lo = other
+            if other > self.hi:
+                self.hi = other
+            self.n += 1
+            diff = other - self.mean
+            self.mean += diff/self.n
+            self.m2 += diff*(other - self.mean)
+
+        def __sub__(self,other):
+            if self.n < 2:
+                self.n, self.mean, self.m2 = 0, 0, 0
+            else:
+                self.n -= 1
+                diff = other - self.mean
+                self.mean -= diff / self.n
+                self.m2 -= diff * (other - self.mean)
+
+    # class Sym:
+    #
+    # class Some:
 
 
 def main():
+    Num = Col.Num
     rand01 = np.random.randint(low=1, high=200, size=100)
     result = Num()
     meanlist01,meanlist02 = [], []
